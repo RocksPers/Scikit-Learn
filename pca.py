@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler #Normalizar los datos
 from sklearn.model_selection import train_test_split #permite hacer una división de un conjunto de datos en dos 
 #bloques de entrenamiento y prueba de un modelo
 if __name__ == '__main__':
-    dt_heart=pd.read_csv('./Sensor.csv')
+    dt_heart=pd.read_csv('./data/Sensor.csv')
     print(dt_heart.head(10)) #imprimimos los 5 primeros datos
     dt_features=dt_heart.drop(['INCIDENCIA'],axis=1) #las featurus sin el target
     dt_target = dt_heart['INCIDENCIA'] #obtenemos el target
