@@ -19,14 +19,12 @@ if __name__ == '__main__':
     x = dt_heart.drop(['INCIDENCIA'], axis=1)
     y = dt_heart['INCIDENCIA']
 
-    print("No Normalizados")
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.35, random_state=1)
     
-    '''''
     knn_class = KNeighborsClassifier().fit(X_train, y_train)
     knn_prediction = knn_class.predict(X_test)
     print('='*64)
-    print('SCORE con KNN: ', accuracy_score(knn_prediction, y_test))'''
+    print('SCORE con KNN: ', accuracy_score(knn_prediction, y_test))
     bag_class = BaggingClassifier(base_estimator=KNeighborsClassifier(), n_estimators=50).fit(X_train, y_train) 
     # base_estimator pide el 
     #estimador en el que va a estar basado nuestro metodo || n_estimators 
@@ -34,24 +32,7 @@ if __name__ == '__main__':
     bag_pred = bag_class.predict(X_test)
     print('='*64)
     print(accuracy_score(bag_pred, y_test))
-    print(X_train.shape) #consultar la forma de la tabla con pandas
-    print(y_train.shape)
-
-    print("Normalización")
-    dt_features = StandardScaler().fit_transform(x) #Normalizamnos los datos
-
-    X_train,X_test,y_train,y_test =train_test_split(dt_features,y,test_size=0.30,random_state=42)
-    bag_class = BaggingClassifier(base_estimator=KNeighborsClassifier(), n_estimators=50).fit(X_train, y_train)
-    bag_pred = bag_class.predict(X_test)
-    print('='*64)
-    print(accuracy_score(bag_pred, y_test))
-    print(X_train.shape) #consultar la forma de la tabla con pandas
-    print(y_train.shape)
-
     
-
-    
-    '''''
     estimators = {
         'LogisticRegression' : LogisticRegression(),
         'SVC' : SVC(),
@@ -68,7 +49,7 @@ if __name__ == '__main__':
         bag_predict = bag_class.predict(X_test)
         print('='*64)
         print('SCORE Bagging with {} : {}'.format(name, 
-        accuracy_score(bag_predict, y_test)))'''''
+        accuracy_score(bag_predict, y_test)))
     
     
 

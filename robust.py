@@ -7,10 +7,10 @@ from sklearn.svm import SVR
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 if __name__ == "__main__":
-    dataset = pd.read_csv('./data/felicidad.csv')
+    dataset = pd.read_csv('./data/Sensor.csv')
     print(dataset.head(5))
-    X = dataset.drop(['country', 'score'], axis=1)
-    y = dataset[['score']]
+    X = dataset.drop(['PLANTA', 'FRUTO','INCIDENCIA'], axis=1)
+    y = dataset[['INCIDENCIA']]
 
     X_train, X_test, y_train, y_test = train_test_split(X,y, 
     test_size=0.3, random_state=42)

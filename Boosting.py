@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.preprocessing import StandardScaler #Normalizar los datos
 #from sklearn.linear_model import LogisticRegression
 #from sklearn.svm import SVC
 #from sklearn.svm import LinearSVC
@@ -13,31 +12,18 @@ import warnings
 warnings.filterwarnings("ignore")
 if __name__ == '__main__':
     dt_heart = pd.read_csv('./data/Sensor.csv')
-    #print(dt_heart['INCIDENCIA'].describe())
+    #print(dt_heart['target'].describe())
     x = dt_heart.drop(['INCIDENCIA'], axis=1)
     y = dt_heart['INCIDENCIA']
-    print("No Normalizados")
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.35, random_state=1)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, 
+    test_size=0.35, random_state=1)
     boosting = GradientBoostingClassifier(loss='exponential',learning_rate=0.15, 
     n_estimators=188, max_depth=5).fit(X_train, y_train)
     boosting_pred=boosting.predict(X_test)
     print('='*64)
     print(accuracy_score(boosting_pred, y_test))
-    print(X_train.shape) #consultar la forma de la tabla con pandas
-    print(y_train.shape)
-    print("Normalizados")
-    dt_features = StandardScaler().fit_transform(x) #Normalizamnos los datos
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.35, random_state=1)
-    boosting = GradientBoostingClassifier(loss='exponential',learning_rate=0.15, 
-    n_estimators=188, max_depth=5).fit(X_train, y_train)
-    boosting_pred=boosting.predict(X_test)
-    print('='*64)
-    print(accuracy_score(boosting_pred, y_test))
-    print(X_train.shape) #consultar la forma de la tabla con pandas
-    print(y_train.shape)
-    
     #obtenemos el mejor resultado junto con el estimador
-    '''estimators = range(2, 300, 2)
+    estimators = range(2, 300, 2)
     total_accuracy = []
     best_result = {'result' : 0, 'n_estimator': 1}
     for i in estimators:
@@ -45,7 +31,8 @@ if __name__ == '__main__':
         boost_pred = boost.predict(X_test)
         new_accuracy = accuracy_score(boost_pred, y_test)
         total_accuracy.append(new_accuracy)
-        if new_accuracy > best_result['result']: 
+        if new_accuracy > best_result['result']:
             best_result['result'] = new_accuracy
             best_result['n_estimator'] = i
-            print(best_result)'''
+
+    print(best_result)
